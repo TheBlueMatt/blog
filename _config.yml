@@ -5,7 +5,7 @@ permalink:           pretty
 relative_permalinks: true
 
 # Setup
-title:               TheBlueMatt's Blog
+title:               BlueMatt's Blog
 tagline:             On Building a Bitcoin for Everyone
 url:                 http://bluematt.bitcoin.ninja
 paginate:            1
