@@ -5,9 +5,9 @@ permalink:           pretty
 relative_permalinks: true
 
 # Setup
-title:               Poole
-tagline:             The Jekyll Butler
-url:                 http://getpoole.com
+title:               TheBlueMatt's Blog
+tagline:             On Bitcoin, Blockstream, and how we build a Bitcoin for everyone
+url:                 http://bluematt.bitcoin.ninja
 paginate:            1
 baseurl:             ""
 
@@ -20,11 +20,11 @@ sass:
 
 # About/contact
 author:
-  name:              Mark Otto
-  url:               https://twitter.com/mdo
-  email:             markdotto@gmail.com
+  name:              Matt Corallo
+  url:               https://twitter.com/TheBlueMatt
+  email:             bluematt@bitcoin.ninja
 
 # Custom vars
 version:             2.0.0
 github:
-  repo:              https://github.com/poole/poole
+  repo:              https://github.com/TheBlueMatt/blog
