@@ -6,7 +6,7 @@ relative_permalinks: true
 
 # Setup
 title:               TheBlueMatt's Blog
-tagline:             On Bitcoin, Blockstream, and how we build a Bitcoin for everyone
+tagline:             On Building a Bitcoin for Everyone
 url:                 http://bluematt.bitcoin.ninja
 paginate:            1
 baseurl:             ""
