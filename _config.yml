@@ -7,19 +7,13 @@ relative_permalinks: true
 # Setup
 title:               BlueMatt's Blog
 tagline:             On Building a Bitcoin for Everyone
+description:         "A Blog on Bitcoin's ethos, its values and what I see in it. All opinions are my own, though I try to ensure others don't completely disagree."
 url:                 http://bluematt.bitcoin.ninja
-paginate:            1
-baseurl:             ""
+paginate:            5
+baseurl:             ''
 
 gems:
   - jekyll-redirect-from
-
-# Assets
-#
-# We specify the directory for Jekyll so we can use @imports.
-sass:
-  sass_dir:          _sass
-  style:            :compressed
 
 # About/contact
 author:
@@ -28,6 +22,4 @@ author:
   email:             bluematt@bitcoin.ninja
 
 # Custom vars
-version:             2.0.0
-github:
-  repo:              https://github.com/TheBlueMatt/blog
+version:             1.0.0
