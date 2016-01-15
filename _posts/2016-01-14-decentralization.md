@@ -1,7 +1,7 @@
 ---
 layout: post
 title: The Role of Decentralization in Bitcoin
-redirect_from: /2015/01/14/decentralization
+redirect_from: /2015/01/14/decentralization/
 ---
 
 Bitcoiners, from Bitcoin Core developers to long-time Bitcoin enthusiasts to recent /r/Bitcoin discoverers, love to talk about how Bitcoin's decentralization is its ultimate feature. Rarely, however, do you see anyone explain why decentralization matters - surely it's an interesting property from a computer science perspective, but why should consumers, businesses or investors care? This post is an attempt to write out why decentralization is foundational to Bitcoin's utility and, somewhat more importantly, set up future posts talking about when it isn't.
