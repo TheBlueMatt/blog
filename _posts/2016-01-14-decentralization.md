@@ -1,6 +1,6 @@
 ---
 layout: post
-title: The Role of Decentralization in Bitcoin
+title: Why Bitcoin's Decentralization Matters
 redirect_from: /2015/01/14/decentralization/
 ---
 
