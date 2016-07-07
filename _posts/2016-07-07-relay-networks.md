@@ -1,0 +1,37 @@
+---
+layout: post
+title: The Future of The Bitcoin Relay Network(s)
+---
+
+When the [Bitcoin Relay Network](http://bitcoinrelaynetwork.org) was announced, there were some (understandable) complaints about the centralization pressure that it might introduce. While most of the complaints were quickly withdrawn, it is certainly true that more could have been done to encourage others to set up their own relay networks, instead of relying on mine alone.
+
+Additionally, over the past year, as Bitcoin blocks have moved from containing every transaction available in mempools to containing only a subset thereof, the design of the Relay Network has begun to show its age. Though the network itself is very efficient, the protocol's reliance on its small mempool containing nearly all transactions in blocks is no longer providing the performance originally promised.
+
+A few months ago, with these issues in mind, I began writing a new high-speed relay system which is both more decentralized (in several ways) and far more reliable. In this post I'll explain some of the design elements that make this Fast Internet Bitcoin Relay Engine (FIBRE) exciting. For those interested in setting up their own networks, check out the documentation I posted [on the FIBRE site](http://bitcoinfibre.org/fibre-howto.html).
+
+
+Design
+======
+
+Because the original Relay Network's compression has suffered over the past few months, it has been unable to reliably send blocks in only one or two packets. This results in significant spikes in relay time (from its original 100-300 milliseconds to upwards of a second), as TCP handles long-distance links particularly poorly. FIBRE improves on the original design primarily in two ways: it uses UDP with Forward Error Correction to eliminate latency spikes due to packet loss by sending extra data in the first place and it is based on the compression provided by the [Compact Block work in Bitcoin Core](https://github.com/bitcoin/bitcoin/pull/8068).
+
+Because TCP is designed to provide reliable transmission at reasonable bandwidth across medium-large amounts of data, it is incredibly bad at low-latency relay of small amounts of data. It is generally tuned to send packets (each just under 1500 bytes) once and to only discover that some packets were lost after getting a response from the other side. Only then will the sender retransmit the lost packets, allowing the receiver to (potentially) reconstruct the original transmission.
+
+I have seen packet loss for over long-haul links on the internet average 1%, though if you purchase bandwidth directly from global carriers, you can expect < 0.1%. At 1%, the probability of transmitting a full, uncompressed, block without needing to wait for extra round-trips is roughly 0.99^(1000000/1500) = 0.1% (or 0.999^(1000000/1500) = 51%, if you're willing to pay for it). Worse still, packet loss starts to go up as you send more data. Even transmitting just 15KB (around 10 packets) has a probability of success at only 90% for an average hosting provider. When we're talking about 1Gbps or 100Mbps links with round-trip latencies of 100-200 milliseconds, a single round-trip costs significantly more than any reasonable amount of data we could possibly send.
+
+Thus, in order to have maximally low-latency block transmission, we must avoid the need for retransmissions at all costs. In order to do so, we must transmit enough extra data that the receiving peer can reconstruct the entire block even though some packets were lost on the way. Luckily this is a well-researched field, largely thanks to video conferencing having similar requirements. The common solution is UDP-based transmission with some relatively simple linear algebra to send data which can fill in gaps of lost packets efficiently (this is called Forward Error Correction, or FEC).
+
+Even with an elegant solution to the packet-loss issue, the time to transmit 1MB over a 1Gbps link is still several milliseconds, which is more than doubled with the extra overhead from both the construction and transmission time of the FEC data. Thus, the [Compact Blocks](https://github.com/bitcoin/bitcoin/pull/8068) scheme in Bitcoin Core is critical to performance.
+
+Because the Compact Block design was being done at the same time that I was starting work on FIBRE, the `cmpctblock` message format was designed to ensure it fits neatly into a UDP-FEC-based relay mechanism. The only difference is we send it over UDP with FEC, and instead of relying on a round-trip to request any missing transactions in our mempool, we send the block's transactions immediately, again with additional FEC.
+
+One additional improvement in FIBRE is that servers relay individual packets to their peers as soon as they arrive. This way, extra hops do not introduce more latency. Sadly, due to the nature of our FEC encoding, we cannot know if individual packets are a part of a legitimate, or any, block, and thus only enable this optimization between nodes run by the same group.
+
+
+Centralization in Bitcoin Relay and the Relay Network
+=====================================================
+Many of the centralization complaints surrounding the Bitcoin Relay Network focused on its mere existence, commenting that it is in a position to censor blocks. Because a carefully-selected network topology is going to reliably beat a random peer-to-peer network's latency, the only solution to this problem is to have additional, public, Relay Networks. Sadly, despite the software being open source, the only other relay networks which were set up were private ones run by individual miners. When [a semi-public one](http://www.falcon-net.org) finally was set up in the past month or two, its designers started from scratch, and have not yet incorporated much of [what has been learned](https://www.youtube.com/watch?v=QpK6k0yRDWI) about Bitcoin block relay over the past few years[^1].
+
+Clearly, in order for FIBRE to further encourage Bitcoin relay decentralization, it needs to be significantly easier to set up FIBRE-based networks. Thus, the FIBRE software was designed as an add-on module to Bitcoin Core, both so that it can potentially merged in eventually, and so that it fits into existing miner systems easily. Additionally, I have posted a [how-to guide to setting up your own relay network](http://bitcoinfibre.org/) which covers everything from the organization of the software to how to select hosting providers to minimize latency around the globe. As of this writing, there are already 3 groups working to set up networks based on FIBRE and I'm working to get more up and going.
+
+[^1]: While the Falcon Network authors rightfully pointed out that the original Bitcoin Relay Network performed some computation between receiving a block and forwarding it along, the time spent doing so is less than half the time lost from a single packet being lost in transmission (even for a properly-tuned fully-validating node on a physical server, the time spent doing computation before relaying isn't much more than a single long-distance RTT). Thus, by focusing on this time at the cost of block compression, their relay can take an order of magnitude more time than a properly-designed high-speed relay mechanism. Further, by selecting a network topology based on AWS instead of picking Europe <=> East Asia (especially China) routes mindfully, latency for blocks which originate in Europe or east Asia take much longer to relay than they should.
