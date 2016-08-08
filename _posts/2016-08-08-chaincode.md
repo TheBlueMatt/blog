@@ -15,6 +15,6 @@ There will be a series of talks on various Bitcoin technologies and protocol des
 
 Some limited stipends to defray the costs of travel/lodging may be available.
 
-If this sounds like something you want to do (and, seriously, who wouldn't?) please send a general overview of your background as well as some ideas of what Bitcoin projects you find exciting to fall16residency@chaincode.com.
+If this sounds like something you want to do (and, seriously, who wouldn't?) please send a general overview of your background as well as some ideas of what Bitcoin projects you find exciting to [fall16residency@chaincode.com](mailto:fall16residency@chaincode.com).
 
 [^1]: "intensely supportive environment" being an actual quote from someone who has spent a few months with Chaincode contributing to Bitcoin Core.
