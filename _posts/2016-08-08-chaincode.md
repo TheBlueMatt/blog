@@ -7,7 +7,7 @@ I'm excited today to announce that, for a few months this coming fall, I will be
 
 Chaincode Labs has been doing excellent protocol-level Bitcoin development for several years, and now has some of the top contributors to Bitcoin Core. In that time, Chaincode Labs has become an intensely supportive environment[^1] without distraction where developers can work on protocol-level Bitcoin development.
 
-Starting the second week in September (the 12th) and finishing just before Scaling Bitcoin in Milan, we're looking for established developers (Bitcoin experience preferred) who want to immerse themselves full-time in Bitcoin.
+Starting the second week in September (the 12th) and finishing just before Scaling Bitcoin in Milan (Oct 7th), we're looking for established developers (Bitcoin experience preferred) who want to immerse themselves full-time in Bitcoin.
 
 If you've wanted to contribute to Bitcoin Core but found the idea daunting, or want to spend more time designing protocols based on Bitcoin, thinking about edge cases and security models with some of the top minds in Bitcoin, this is an excellent opportunity.
 
