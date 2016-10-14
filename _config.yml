@@ -7,7 +7,7 @@ title:               BlueMatt's Blog
 tagline:             On Building a Bitcoin for Everyone
 description:         "A Blog on Bitcoin's ethos, its values and what I see in it. All opinions are my own, though I try to ensure others don't completely disagree."
 url:                 http://bluematt.bitcoin.ninja
-paginate:            5
+paginate:            1
 baseurl:             ''
 
 gems:
