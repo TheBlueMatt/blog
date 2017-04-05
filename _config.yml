@@ -5,7 +5,8 @@ permalink:           pretty
 # Setup
 title:               BlueMatt's Blog
 tagline:             On Building a Bitcoin for Everyone
-description:         "A Blog on Bitcoin's ethos, its values and what I see in it. All opinions are my own, though I try to ensure others don't completely disagree."
+description:         "A Blog on Bitcoin's ethos, its values and what I see in it. All opinions are my own, though I try to ensure others don't completely disagree.
+@TheBlueMatt"
 url:                 http://bluematt.bitcoin.ninja
 paginate:            2
 baseurl:             ''
